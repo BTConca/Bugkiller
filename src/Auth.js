@@ -57,7 +57,7 @@ class Auth {
 
   signOut() {
     this.auth0.logout({
-     returnTo: 'http://localhost:3000',
+     returnTo: 'https://team3bugkiller.herokuapp.com',
      clientID: 'RRsbmgJTP0pmyPs8ecbgDWRrlfrLeqWQ',
    });
   }
