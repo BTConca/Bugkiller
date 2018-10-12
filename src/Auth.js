@@ -7,7 +7,7 @@ class Auth {
       domain: 'bugkiller.auth0.com',
       audience: 'https://bugkiller.auth0.com/userinfo',
       clientID: 'RRsbmgJTP0pmyPs8ecbgDWRrlfrLeqWQ',
-      redirectUri: 'http://localhost:3000/callback',
+      redirectUri: 'https://team3bugkiller.herokuapp.com/callback',
       responseType: 'token id_token',
       scope: 'openid profile'
     });
