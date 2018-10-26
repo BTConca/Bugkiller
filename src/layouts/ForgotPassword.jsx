@@ -46,7 +46,7 @@ const styles = theme => ({
   },
 });
 
-function SignUp(props) {
+function ForgotPassword(props) {
   const { classes } = props;
 
   return (
@@ -58,30 +58,14 @@ function SignUp(props) {
             <LockIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign Up
+            Forgot you password
           </Typography>
           <form className={classes.form}>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="normal">User name</InputLabel>
-              <Input id="user" name="username"/>
-            </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
               <Input id="email" name="email" autoComplete="email" autoFocus />
             </FormControl>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Input
-                name="password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+
             <Button
               type="submit"
               fullWidth
@@ -89,7 +73,7 @@ function SignUp(props) {
               color="primary"
               className={classes.submit}
             >
-              Sign in
+              Summit
             </Button>
           </form>
         </Paper>
@@ -98,8 +82,8 @@ function SignUp(props) {
   );
 }
 
-SignUp.propTypes = {
+ForgotPassword.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SignUp);
+export default withStyles(styles)(ForgotPassword);

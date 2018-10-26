@@ -14,6 +14,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import Badge from '@material-ui/core/Badge';
+
+
 const styles = {
   root: {
     flexGrow: 1,
@@ -31,6 +35,7 @@ class MenuAppBar extends React.Component {
   state = {
     auth: false,
     anchorEl: null,
+    notify: null
   };
 
   handleChange = event => {
@@ -45,11 +50,19 @@ class MenuAppBar extends React.Component {
     this.setState({ anchorEl: null });
   };
 
+  handleNotify = event => {
+    this.setState({ notify: event.currentTarget });
+  };
+
+  handleNotifySetting = () => {
+    this.setState({ notify: null });
+  };
 
   render() {
     const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
+    const { auth, anchorEl,notify } = this.state;
     const open = Boolean(anchorEl);
+    const opensetting = Boolean(notify);
 
     return (
       <div className={classes.root}>
@@ -60,6 +73,7 @@ class MenuAppBar extends React.Component {
             }
             label={auth ? 'Logout' : 'Login'}
           />
+        <li>TEST Login Logout</li>
         </FormGroup>
         <AppBar position="static">
           <Toolbar>
@@ -95,12 +109,41 @@ class MenuAppBar extends React.Component {
                 >
                   <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  <MenuItem onClick={this.handleClose} component={Link} to="/profile/notification">Setting Notifications</MenuItem>
+                </Menu>
+                <IconButton
+                  aria-owns={opensetting ? 'menu-appbar' : null}
+                  aria-haspopup="true"
+                  onClick={this.handleNotify}
+                  color="inherit">
+                  <Badge className={classes.margin} badgeContent={17} color="secondary">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={notify}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={opensetting}
+                  onClose={this.handleNotifySetting}
+                >
+                  <MenuItem onClick={this.handleNotifySetting}>thông báo 1</MenuItem>
+                  <MenuItem onClick={this.handleNotifySetting}>thông báo 2</MenuItem>
+
                 </Menu>
               </div>
             ) : (<div>
               <Button color="inherit" component={Link} to="/update">Test UpdateProject</Button>
               <Button color="inherit" component={Link} to="/signup">Sign Up</Button>
               <Button color="inherit" component={Link} to="/signin">Login</Button>
+              <Button color="inherit" component={Link} to="/forgotpassword">Test Forgot PW</Button>
             </div>)}
           </Toolbar>
         </AppBar>

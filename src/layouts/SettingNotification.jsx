@@ -10,13 +10,12 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem';
-import AddIcon from '@material-ui/icons/Add';
+import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import UpdateOutlined from '@material-ui/icons/UpdateOutlined';
 
-// @material-ui/core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
@@ -25,9 +24,8 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-
 import Table from "components/Table/Table.jsx";
-
+import NotificationSetting from "components/Table/NotificationSetting.jsx";
 
 const styles = theme => ({
   container: {
@@ -51,6 +49,11 @@ const styles = theme => ({
   width: 200,
 },
 textFieldRole: {
+  marginLeft: theme.spacing.unit,
+  marginRight: theme.spacing.unit,
+  width: 200,
+},
+textField: {
   marginLeft: theme.spacing.unit,
   marginRight: theme.spacing.unit,
   width: 150,
@@ -91,31 +94,11 @@ textFieldRole: {
     },
 });
 
-const roles = [
-  {
-
-    value: 'Dev',
-    label: 'Dev',
-  },
-  {
-
-    value: 'Scrum Master',
-    label: 'Scrum Master',
-  },
-  {
-    value: 'Product Owner',
-    label: 'Product Owner',
-  },
-];
-
-
-class UpdateProject extends React.Component {
+class SettingNotification extends React.Component {
   state = {
-    name: 'Some thing here ...',
-    multiline: 'Controlled',
-    des : 'Nothing here...',
-    role: 'Dev',
-        fullWidth : true
+    trigger: 'Update Project',
+    role1: 'Dev',
+    role2: 'Scrum Master'
   };
 
   handleChangeMul = des => event => {
@@ -138,87 +121,93 @@ render() {
      <main className={classes.layout}>
         <Card>
           <CardHeader color="rose">
-            <h4 className={classes.cardTitleWhite}>Update Project</h4>
+            <h4 className={classes.cardTitleWhite}>Notifications Setting</h4>
           </CardHeader>
           <CardBody>
-            <GridContainer>
-              <CustomInput
-                    labelText="Your Project Name"
-                    id="username"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      disabled: false
-                    }}
-                  />
-            </GridContainer>
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={12}>
-                    <TextField
-                      id='outlined-multiline-flexible'
-                      label='Description'
-                      multiline
-                      rowsMax='10'
-                      value={this.state.des}
-                      onChange={this.handleChangeMul('des')}
-                      className={classes.textField}
-                      margin='normal'
-                      variant='outlined'
-                      fullWidth = {this.state.fullWidth}
-                      />
-                  </GridItem>
-                </GridContainer>
                   <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
                       <TextField
-                        id="outlined-email-input"
-                        label="Email"
-                        className={classes.textField}
-                        type="email"
-                        name="email"
-                        autoComplete="email"
-                        margin="normal"
-                        variant="outlined"
-                        />
+                          id="outlined-select-currency"
+                          select
+                          label="Event"
+                          className={classes.textFieldRol}
+                          value={this.state.trigger}
+                          onChange={this.handleChangeMul('trigger')}
+                          SelectProps={{
+                            MenuProps: {
+                              className: classes.menu,
+                            },
+                          }}
+                          margin="normal"
+                          variant="outlined"
+                        >
+                          {events.map(option => (
+                            <MenuItem key={option.value} value={option.value}>
+                              {option.label}
+                            </MenuItem>
+                          ))}
+                        </TextField>
                         <TextField
                             id="outlined-select-currency"
                             select
                             label="Role"
-                            className={classes.textFieldRole}
-                            value={this.state.role}
-                            onChange={this.handleChangeMul('role')}
+                            className={classes.textField}
+                            value={this.state.role1}
+                            onChange={this.handleChangeMul('role1')}
                             SelectProps={{
                               MenuProps: {
                                 className: classes.menu,
                               },
                             }}
-                            helperText="Please select your role"
+                            helperText="Please select role triger event"
                             margin="normal"
                             variant="outlined"
                           >
-                            {roles.map(option => (
+                            {role1s.map(option => (
                               <MenuItem key={option.value} value={option.value}>
                                 {option.label}
                               </MenuItem>
                             ))}
                           </TextField>
-                          <Button variant="outlined" size="medium" color="secondary" aria-label="Add" className={classes.button}>
-                            <AddIcon />
+
+                          <TextField
+                              id="outlined-select-currency"
+                              select
+                              label="Role"
+                              className={classes.textField}
+                              value={this.state.role2}
+                              onChange={this.handleChangeMul('role2')}
+                              SelectProps={{
+                                MenuProps: {
+                                  className: classes.menu,
+                                },
+                              }}
+                              helperText="Please select role will receive notifications"
+                              margin="normal"
+                              variant="outlined"
+                            >
+                              {role2s.map(option => (
+                                <MenuItem key={option.value} value={option.value}>
+                                  {option.label}
+                                </MenuItem>
+                              ))}
+                            </TextField>
+                            <Button variant="outlined" size="medium" color="secondary" aria-label="Add" className={classes.button}>
+                                <AddCircleOutline />
                           </Button>
                   </GridItem>
                   </GridContainer>
                   <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
-                      <Table />
+                      <NotificationSetting />
                     </GridItem>
                   </GridContainer>
                   <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
-                      <Button variant="contained" color="secondary" className={classes.button}>
-                              Update
-                      <UpdateOutlined className={classes.rightIcon} />
-                      </Button>
+                        <Button variant="contained" color="secondary" className={classes.button}>
+                                Update
+                                <UpdateOutlined className={classes.rightIcon} />
+                        </Button>
                     </GridItem>
                   </GridContainer>
           </CardBody>
@@ -228,8 +217,58 @@ render() {
  };
 }
 
-UpdateProject.propTypes = {
+SettingNotification.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(UpdateProject);
+const events = [
+  {
+
+    value: 'Update Project',
+    label: 'Update Project',
+  },
+  {
+
+    value: 'Create Project',
+    label: 'Create Project',
+  },
+  {
+    value: 'Delete Project',
+    label: 'Delete Project',
+  },
+];
+
+const role1s = [
+  {
+
+    value: 'Dev',
+    label: 'Dev',
+  },
+  {
+
+    value: 'Scrum Master',
+    label: 'Scrum Master',
+  },
+  {
+    value: 'Product Owner',
+    label: 'Product Owner',
+  },
+];
+
+const role2s = [
+  {
+
+    value: 'Dev',
+    label: 'Dev',
+  },
+  {
+
+    value: 'Scrum Master',
+    label: 'Scrum Master',
+  },
+  {
+    value: 'Product Owner',
+    label: 'Product Owner',
+  },
+];
+export default withStyles(styles)(SettingNotification);
